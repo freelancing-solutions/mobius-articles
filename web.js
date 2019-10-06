@@ -18,7 +18,18 @@ app.use(bodyParser.json());
 const results = news.search("bitcoin");
 // define a simple route
 app.get('/', (req, res) => {
+    const{data} = req;
     res.json(results);
+});
+
+app.get('/search',(req,res) => {
+  const { data } = req;
+  res.json(news.search(data));
+});
+
+app.get('/refine',(req,res) = {
+  const{data} = req;
+  res.json(news.refine(data));
 });
 
 // listen for requests
