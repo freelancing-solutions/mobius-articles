@@ -1,19 +1,19 @@
 const moment = require("moment");
 const NewsAPI = require("newsapi");
-const newsapi = new NewsAPI(
-  process.env.NEWS_API_KEY
-);
+const api_key = process.env.NEWS_API_KEY;
+const newsapi = new NewsAPI(api_key);
 
 const news_articles = [];
 const fetch_date = null;
-
-
+const last_term = null;
 
 const searchNews = async term => {
+
     const results = {status:false,payload:[],error:{}};        
         const today = moment().format("YYYY-MM-DD");
 
-        if ((fetch_date === null) || (fetch_date !== today)){
+        if ((fetch_date === null) || (last_term === null) || (last_term !== term) || (fetch_date !== today)){
+
             await newsapi.v2.everything({
                 q: term,        
                 from: today,    
@@ -28,6 +28,8 @@ const searchNews = async term => {
                 results.status = true;
                 news_articles = results.payload;
                 fetch_date = today;
+                last_term = term;
+
             }).catch(error => {
                 console.log(error);
                 results.payload = [];
@@ -45,11 +47,36 @@ const searchNews = async term => {
 };
 
 
+const articles_api = {	
+	entertainment_news: `https://newsapi.org/v2/top-headlines?country=za&category=entertainment&apiKey=${api_key}`,
+	sports_news: `https://newsapi.org/v2/top-headlines?country=za&category=sports&apiKey=${api_key}`,
+    business_news: `https://newsapi.org/v2/top-headlines?country=za&category=business&apiKey=${api_key}`,
+    tech_news: `https://newsapi.org/v2/top-headlines?country=za&category=technology&apiKey=${api_key}`,
+    science_news: `https://newsapi.org/v2/top-headlines?country=za&category=science&apiKey=${api_key}`,
+	health_news: `https://newsapi.org/v2/top-headlines?country=za&category=health&apiKey=${api_key}`		
+};    
+
+const category_memory ={
+    fetch_date : null,
+    entertainment_news : [],
+    sports_news : [],
+    business_news : [],
+    tech_news : [],
+    science_news : [],
+    health_news : [],
+};    
+
+
+
+
 async function get_blog_articles(category) {	
-	let results = '';
-	let apiRequest = '';
-    console.log('CATEGORY',category);	
-		switch(category){
+
+	let results = null;
+    let apiRequest = null;
+    const today = moment().format("YYYY-MM-DD");
+    
+    if ((fetch_date !== today) && (category_memory[category].length < 1)){
+        switch(category){
             case 'entertainment': apiRequest = articles_api.entertainment_news;break;
             case 'sports' : apiRequest = articles_api.sports_news;break;
             case 'business' : apiRequest = articles_api.business_news;break;
@@ -58,20 +85,37 @@ async function get_blog_articles(category) {
             case 'health' : apiRequest = articles_api.health_news;break;
             default: apiRequest = articles_api.entertainment_news;break;        
         }
+            
+        await axios.get(apiRequest).then(result => {
+            if (result.status === 200) {
+                return result.data;
+            } else {
+                throw new Error('There was an error fetching articles');
+            }
+        }).then(articles => {
+            results = articles.articles;
+            switch(category){
+                case 'entertainment': category_memory.entertainment_news = articles.articles;break;
+                case 'sports' : category_memory.sports_news = articles.articles;break;
+                case 'business' : category_memory.business_news = articles.articles;break;
+                case 'tech' : category_memory.tech_news = articles.articles;break;
+                case 'science': category_memory.science_news = articles.articles;break;
+                case 'health' : category_memory.health_news = articles.articles;break;
+                default: category_memory.entertainment_news = articles.articles;break;        
+            }
+
+        }).catch(error => {
+            console.log(error);
+        });
+
         
-	await axios.get(apiRequest).then(result => {
-		if (result.status === 200) {
-			return result.data;
-		} else {
-			throw new Error('There was an error fetching articles');
-		}
-	}).then(articles => {
-		results = articles;
-	}).catch(error => {
-		console.log(error);
-	});
-	console.log('RESULTS : ', results);
-	return results.articles;
+        category_memory.fetch_date = today;
+    }else{
+        
+        results = category_memory[category]
+    }
+
+	return results;
 };
 
 module.exports = {
