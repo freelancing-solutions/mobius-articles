@@ -1,6 +1,6 @@
 const moment = require("moment");
 const NewsAPI = require("newsapi");
-const api_key = process.env.NEWS_API_KEY;
+const api_key = process.env.NEWS_API_KEY || "41e896a0a1c94b61903408fae1a49471";
 const newsapi = new NewsAPI(api_key);
 
 const news_articles = [];
@@ -111,7 +111,7 @@ async function get_blog_articles(category) {
         
         category_memory.fetch_date = today;
     }else{
-        
+
         results = category_memory[category]
     }
 

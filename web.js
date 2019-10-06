@@ -3,7 +3,13 @@ const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
 const socketio = require('@feathersjs/socketio');
 const news = require('./news');
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3030;
+
+
+// Search Services
+
+
+
 
 // initializing express and feathers
 const app = express(feathers());
@@ -19,7 +25,9 @@ app.configure(express.rest());
 
 // register services
 
-// app.use('/chat', new ChatService());
+app.use('/search', (data) => {
+  news.search(data);
+});
 
 // new connections connect to stream
 app.on('connection', conn => app.channel('stream').join(conn));
@@ -33,6 +41,9 @@ app.listen(PORT).on('listening', () => {
     console.log(`Realtime server running on ${PORT} `);
     console.log(results.payload);
 });
+
+
+
 
 
 app.io.on("connection", socket => {
@@ -61,3 +72,5 @@ app.io.on("connection", socket => {
   });
 
 });
+
+// TODO - consider turning this app into a simple crud app
