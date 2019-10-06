@@ -31,5 +31,26 @@ const results = news.search("bitcoin");
 
 app.listen(PORT).on('listening', () => {
     console.log(`Realtime server running on ${PORT} `);
-    console.log(results.payload[2]);
+    console.log(results.payload);
+});
+
+
+app.io.on("connection", socket => {
+  
+  console.log('connected socket',socket.id);
+    
+  // disconnect
+  socket.on("disconnect", data => {
+    console.log("Disconnected : ",socket.id);
+  });
+
+  // send message
+  socket.on("search", data => {        
+    
+    news.search(data).then(results => {
+      app.io.sockets.emit("search", results);
+    });
+
+  });
+
 });

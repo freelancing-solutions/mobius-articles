@@ -7,8 +7,7 @@ const newsapi = new NewsAPI(
 const news_articles = [];
 
 const searchNews = async term => {
-    const results = {status:false,payload:[],error:{}};
-        
+    const results = {status:false,payload:[],error:{}};        
         const today = moment().format("YYYY-MM-DD");
         await newsapi.v2.everything({
             q: term,        
