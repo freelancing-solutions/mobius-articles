@@ -2,9 +2,7 @@
 const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
 const socketio = require('@feathersjs/socketio');
-
-
-
+const news = require('./news');
 const PORT = process.env.PORT || 5000;
 
 // initializing express and feathers
@@ -30,4 +28,7 @@ app.on('connection', conn => app.channel('stream').join(conn));
 app.publish(data => app.channel('stream'));
 
 
-app.listen(PORT).on('listening', () => console.log(`Realtime server running on ${PORT}`));
+app.listen(PORT).on('listening', () => {
+    console.log(`Realtime server running on ${PORT} `);
+    console.log(news.search('bitcoin'));
+});
