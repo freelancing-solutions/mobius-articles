@@ -31,5 +31,5 @@ const results = news.search("bitcoin");
 
 app.listen(PORT).on('listening', () => {
     console.log(`Realtime server running on ${PORT} `);
-    console.log(results.payload);
+    console.log(results.payload[2]);
 });
