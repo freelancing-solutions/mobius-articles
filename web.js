@@ -27,8 +27,9 @@ app.on('connection', conn => app.channel('stream').join(conn));
 // publish to stream
 app.publish(data => app.channel('stream'));
 
+const results = news.search("bitcoin");
 
 app.listen(PORT).on('listening', () => {
     console.log(`Realtime server running on ${PORT} `);
-    console.log(news.search('bitcoin'));
+    console.log(results.payload[10]);
 });
