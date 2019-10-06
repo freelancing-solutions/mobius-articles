@@ -1,0 +1,21 @@
+{
+  "name": "mobius-articles",
+  "version": "1.0.0",
+  "description": "a node.js server used to access articles api in order to provide a single point where to access blog articles for my apps",
+  "main": "web.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "articles",
+    "node.js",
+    "javascript"
+  ],
+  "author": "justice ndou",
+  "license": "MIT",
+  "dependencies": {
+    "@feathersjs/express": "^4.3.4",
+    "@feathersjs/feathers": "^4.3.4",
+    "@feathersjs/socketio": "^4.3.4"
+  }
+}
