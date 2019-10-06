@@ -8,7 +8,17 @@ const PORT = process.env.PORT || 3030;
 
 // Search Services
 
+class SearchService {
+  constructor(){
+    this.articles  = [];
+  }
 
+  async find(){
+    return this.articles;
+  }
+
+
+};
 
 
 // initializing express and feathers
@@ -25,9 +35,7 @@ app.configure(express.rest());
 
 // register services
 
-app.use('/search', (data) => {
-  news.search(data);
-});
+app.use('/search', new SearchService());
 
 // new connections connect to stream
 app.on('connection', conn => app.channel('stream').join(conn));
