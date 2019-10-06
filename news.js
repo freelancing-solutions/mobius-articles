@@ -7,7 +7,7 @@ const newsapi = new NewsAPI(
 const news_articles = [];
 
 const searchNews = async term => {
-    const results = {status:true,payload:{},error:{}};
+    const results = {status:false,payload:{},error:{}};
         
         const today = moment().format("YYYY-MM-DD");
         await newsapi.v2.everything({
@@ -15,13 +15,17 @@ const searchNews = async term => {
             from: today,    
             language: "en",
             sortBy: "relevancy",    
-        }).then(response => {
-            console.log(response);
-            results = response;                        
+        }).then(response_json => {
+            console.log(response_json);
+            const articles = JSON.parse(response_json);        
+            results.payload =articles.articles;
+            results.status = true;
         }).catch(error => {
             console.log(error);
+            results.payload = [];
+            results.error = {...error};
+            results.status = false;
         });
-
     return results;
 };
 
