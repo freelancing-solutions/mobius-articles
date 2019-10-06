@@ -9,14 +9,14 @@ const PORT = process.env.PORT || 3030;
 // Search Services
 
 class SearchService {
+  
   constructor(){
-    this.articles  = [];
+
   }
 
-  async find(){
-    return this.articles;
+  async refine(data){
+    return news.refine(data);
   }
-
 
 };
 
