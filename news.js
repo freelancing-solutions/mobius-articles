@@ -1,7 +1,7 @@
 const moment = require("moment");
 const NewsAPI = require("newsapi");
 const newsapi = new NewsAPI(
-  process.env.NEWS_API_KEY || "41e896a0a1c94b61903408fae1a49471"
+  process.env.NEWS_API_KEY
 );
 
 const news_articles = [];
