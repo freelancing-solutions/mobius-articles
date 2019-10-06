@@ -27,7 +27,7 @@ app.get('/search',(req,res) => {
   res.json(news.search(data));
 });
 
-app.get('/refine',(req,res) = {
+app.get('/refine/${category}',(req,res) = {
   const{data} = req;
   res.json(news.refine(data));
 });
