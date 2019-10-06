@@ -45,10 +45,17 @@ app.io.on("connection", socket => {
   });
 
   // send message
-  socket.on("search", data => {        
+  socket.on("search", data => {            
     
     news.search(data).then(results => {
-      app.io.sockets.emit("search", results);
+      socket.emit("search", results);
+    });
+
+  });
+
+  socket.on("category", data => {    
+    news.refine(data).then(results => {
+      socket.emit("category",results);
     });
 
   });
