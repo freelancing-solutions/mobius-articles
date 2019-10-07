@@ -48,7 +48,8 @@ app.get("/search/:searchTerm",(req,res,next) => {
     const results = {status : false,payload:[],error:{}};
 
     
-    news.search(searchTerm).then(response => {       
+    news.search(searchTerm).then(response => {    
+      console.log('ok lets see',response);   
       res.status(200).json(response);      
     }).catch(error => {
         res.status(401).json({
