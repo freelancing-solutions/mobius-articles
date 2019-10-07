@@ -15,11 +15,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
-const results = news.search("bitcoin");
+
 // define a simple route
 app.get('/', (req, res) => {
-    const{data} = req;
-    res.json(results);
+    
+    res.send('this is an article api good luck')
 });
 
 app.get('/search/:searchTerm',(req,res) => {
@@ -47,13 +47,19 @@ app.get('/refine/:category',(req,res) => {
         if (response){
           res.status(200).json(response);
         }else{
-          res.status(401).json('message':'there was an error fetching articles please try again later');
+          res.status(401).json({
+            message : 'there was an error fetching articles please try again later'
+          });
         }
       }).catch(error => {
-        res.status(401).json('message':error.message);
+        res.status(401).json({
+          message :error.message 
+        });
       });    
   }else{
-    res.status(401).json('message':'your query was not formatted correctly');
+    res.status(401).json({
+      message :'your query was not formatted correctly' 
+    });
   };
 
 });
@@ -64,8 +70,7 @@ app.listen(3000, () => {
 });
 
 app.listen(PORT).on('listening', () => {
-    console.log(`Realtime server running on ${PORT} `);
-    console.log(results.payload);
+    console.log(`Articles API Running on  ${PORT} `);    
 });
 
 
