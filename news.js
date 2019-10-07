@@ -32,7 +32,7 @@ const searchNews = async term => {
         results.error = {...error};
         results.status = false;
     });
-
+    console.log('Results Returbed from search news api',str(results.payload.length));
     return results;
 };
 
@@ -82,7 +82,7 @@ async function get_blog_articles(category){
     } else {
       results = category_memory[category];
     }
-
+    console.log('results returned from fetch blog articles');
 	return results;
 };
 
