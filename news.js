@@ -16,7 +16,7 @@ const searchNews = async term => {
     // checking if results is already saved in redis if yes then use the results
     
     let response = redis_utils.retrieve(term);
-
+    
     if(response === null)
         {
             await newsapi.v2.everything({

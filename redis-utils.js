@@ -42,11 +42,12 @@ const retrieveFromRedis = searchTerm => {
 const storeToRedis = (data, searchTerm) => {
     let today = moment().format("YYYY-MM-DD");
     let redisKey = `${today}:${searchTerm}`;
-    let i = 0
+    let i = 0;
 
-    data.forEach(obj => {
-        client.setex(redisKey + str(i),36000,obj.toString());    
-        i += 1;
+    data_files = JSON.parse(data);
+    data_files.forEach(obj => {
+      client.setex(redisKey + str(i), 36000, obj.toString());
+      i += 1;
     });
 
     // client.hmset(redisKey, JSON.stringify(data.toString()), (err, reply) => {
