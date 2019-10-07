@@ -67,20 +67,13 @@ const category_memory ={
     health : [],
 };    
 
-
-
-
-async function get_blog_articles(category) {	
-
+async function get_blog_articles(category){
 	let results = null;
     let apiRequest = null;
     const today = moment().format("YYYY-MM-DD");
+    
+    if ((fetch_date !== today) && (category_memory[category] && category_memory[category].length < 1)){
 
-    
-    
-    if (
-      (fetch_date !== today) && (category_memory[category] && category_memory[category].length < 1)
-    ) {
       switch (category) {
         case "entertainment":
           apiRequest = articles_api.entertainment_news;
@@ -113,8 +106,7 @@ async function get_blog_articles(category) {
           } else {
             throw new Error("There was an error fetching articles");
           }
-        })
-        .then(articles => {
+        }).then(articles => {
           results = articles;
           switch (category) {
             case "entertainment":
