@@ -2,6 +2,7 @@
 
 const express = require('express');
 const bodyParser = require("body-parser");
+const cors = require('cors');
 const news = require('./news');
 const PORT = process.env.PORT || 3030;
 
@@ -15,6 +16,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
+// adding cors
+app.use(cors());
 
 // define a simple route
 app.get('/', (req, res) => {
