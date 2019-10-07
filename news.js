@@ -23,8 +23,8 @@ const searchNews = async term => {
             }).then(response_json => {
                 
                 console.log(response_json);
-                const articles = JSON.parse(response_json);        
-                results.payload =[...articles];
+                     
+                results.payload = [...response_json];
                 results.status = true;
                 news_articles = results.payload;
                 fetch_date = today;
