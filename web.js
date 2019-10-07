@@ -61,7 +61,7 @@ app.get('/search/:searchTerm',(req,res,next) => {
 app.get("/refine/:category",(req, res, next) => {
       //middle ware to define cache name
       //set chache name
-      res.express_redis_cache_name = "refine-" + req.params.searchTerm;
+      res.express_redis_cache_name = "refine-" + req.params.category;
       next();},cache.route("search", 36000), (req, res) => {
 
         //destructuring
