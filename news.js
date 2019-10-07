@@ -41,6 +41,7 @@ const searchNews = async term => {
                 results.status = false;
             });
         }else{
+            console.log('Retrieved from redis',response);
             results.payload = response;
             results.status = true;
             results.error = {};
