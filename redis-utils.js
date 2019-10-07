@@ -15,13 +15,26 @@ const retrieveFromRedis = searchTerm => {
   
   let redisKey = `${today}:${searchTerm}`;
 
-  let response = null;  
+  let response = [];  
+  
+  let i = 0;
 
-  client.hgetall(redisKey, (error, results) => {
-    if (results) {
-        response = JSON.parse(results);
-    } 
-  });
+  returned = client.get(redisKey + str(i));
+  while(returned){
+    response.push(returned);
+    returned = client.get(redisKey + str(i));
+    i += 1;
+  }
+    
+
+
+//   client.hgetall(redisKey, (error, results) => {
+//     if (results) {
+//         response = JSON.parse(results);
+//     } 
+//   });
+
+
   console.log('retrieved from redis',response);
   return response;
 };
@@ -29,13 +42,19 @@ const retrieveFromRedis = searchTerm => {
 const storeToRedis = (data, searchTerm) => {
     let today = moment().format("YYYY-MM-DD");
     let redisKey = `${today}:${searchTerm}`;
+    let i = 0
 
-    client.hmset(redisKey, JSON.stringify(data.toString()), (err, reply) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log(reply);
+    data.forEach(obj => {
+        client.setex(redisKey + str(i),36000,obj.toString());    
+        i += 1;
     });
+
+    // client.hmset(redisKey, JSON.stringify(data.toString()), (err, reply) => {
+    //   if (err) {
+    //     console.log(err);
+    //   }
+    //   console.log(reply);
+    // });
 
     // client.setex(redisKey, 36000, JSON.stringify(data));
     
