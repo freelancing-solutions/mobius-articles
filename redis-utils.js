@@ -30,11 +30,11 @@ const storeToRedis = (data, searchTerm) => {
     let today = moment().format("YYYY-MM-DD");
     let redisKey = `${today}:${searchTerm}`;
 
-    client.hmset(redisKey,JSON.stringify(data),(err,reply) => {
-        if(err){
-            console.log(err);
-        }
-        console.log(reply);
+    client.hmset(redisKey, JSON.stringify(data.toString()), (err, reply) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(reply);
     });
 
     // client.setex(redisKey, 36000, JSON.stringify(data));
