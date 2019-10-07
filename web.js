@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
 app.get('/search/:searchTerm',(req,res,next) => {
       //middle ware to define cache name
       //set chache name
-      res.express_redis_cache_name = "search-" + req.params.searchTerm;
+      res.express_redis_cache_name = "searchterm" + req.params.searchTerm;
       next();},cache.route('search',36000),(req,res) => {
   
     const {searchTerm} = req.params;        
@@ -61,7 +61,7 @@ app.get('/search/:searchTerm',(req,res,next) => {
 app.get("/refine/:category",(req, res, next) => {
       //middle ware to define cache name
       //set chache name
-      res.express_redis_cache_name = "refine-" + req.params.category;
+      res.express_redis_cache_name = "refine" + req.params.category;
       next();},cache.route("search", 36000), (req, res) => {
 
         //destructuring
