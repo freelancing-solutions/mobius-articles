@@ -22,14 +22,40 @@ app.get('/', (req, res) => {
     res.json(results);
 });
 
-app.get('/search',(req,res) => {
-  const { data } = req;
-  res.json(news.search(data));
+app.get('/search/:searchTerm',(req,res) => {
+  
+  const {searchTerm} = req.params;
+  const results = {status : false,payload:[],error:{}};
+  if (searchTerm){
+    news.search(searchTerm).then(response => {      
+      res.status(200).json(response);      
+    }).catch(error => {
+        results.error = {...error};
+        results.status = false;
+        res.status(401).json(results);
+    });
+  }
 });
 
-app.get('/refine/${category}',(req,res) = {
-  const{data} = req;
-  res.json(news.refine(data));
+app.get('/refine/:category',(req,res) = {
+  
+  //destructuring
+  const {category} = req.params
+
+  if (category){
+      news.refine(category).then(response => {
+        if (response){
+          res.status(200).json(response);
+        }else{
+          res.status(401).json('message':'there was an error fetching articles please try again later');
+        }
+      }).catch(error => {
+        res.status(401).json('message':error.message);
+      });    
+  }else{
+    res.status(401).json('message':'your query was not formatted correctly');
+  };
+
 });
 
 // listen for requests
