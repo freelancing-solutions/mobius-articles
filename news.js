@@ -24,7 +24,7 @@ const searchNews = async term => {
         results.payload = [...response_json.articles];
         results.status = true;
     }).catch(error => {
-      
+        console.log(error);
         results.payload = [];
         results.error = {...error};
         results.status = false;
