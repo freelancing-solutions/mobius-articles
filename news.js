@@ -1,5 +1,6 @@
 const moment = require("moment");
 const NewsAPI = require("newsapi");
+const axios = require('axios');
 const api_key = process.env.NEWS_API_KEY || "41e896a0a1c94b61903408fae1a49471";
 const newsapi = new NewsAPI(api_key);
 
