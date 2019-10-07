@@ -3,14 +3,14 @@ const NewsAPI = require("newsapi");
 const api_key = process.env.NEWS_API_KEY || "41e896a0a1c94b61903408fae1a49471";
 const newsapi = new NewsAPI(api_key);
 
-const news_articles = [];
-const fetch_date = null;
-const last_term = null;
+let news_articles = [];
+let fetch_date = null;
+let last_term = null;
 
 const searchNews = async term => {
 
-    const results = {status:false,payload:[],error:{}};        
-        const today = moment().format("YYYY-MM-DD");
+    let results = {status:false,payload:[],error:{}};        
+    let today = moment().format("YYYY-MM-DD");
 
         if ((fetch_date === null) || (last_term === null) || (last_term !== term) || (fetch_date !== today)){
 
