@@ -25,10 +25,7 @@ const searchNews = async term => {
                 language: "en",
                 sortBy: "relevancy",    
             
-            }).then(response_json => {
-                
-                console.log(response_json);
-
+            }).then(response_json => {                            
                 results.payload = [...response_json.articles];
                 results.status = true;
                 const data = results.payload;
@@ -40,6 +37,7 @@ const searchNews = async term => {
                 results.error = {...error};
                 results.status = false;
             });
+
         }else{
             console.log('Retrieved from redis',response);
             results.payload = response;
