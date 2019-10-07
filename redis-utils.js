@@ -19,7 +19,7 @@ const retrieveFromRedis = searchTerm => {
 
   client.hgetall(redisKey, (error, results) => {
     if (results) {
-        response = results;
+        response = JSON.parse(results);
     } 
   });
   console.log('retrieved from redis',response);
@@ -30,7 +30,7 @@ const storeToRedis = (data, searchTerm) => {
     let today = moment().format("YYYY-MM-DD");
     let redisKey = `${today}:${searchTerm}`;
 
-    client.hmset(redisKey,data,(err,reply) => {
+    client.hmset(redisKey,JSON.stringify(data),(err,reply) => {
         if(err){
             console.log(err);
         }
