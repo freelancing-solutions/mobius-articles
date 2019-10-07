@@ -37,7 +37,7 @@ app.get('/search/:searchTerm',(req,res) => {
   }
 });
 
-app.get('/refine/:category',(req,res) = {
+app.get('/refine/:category',(req,res) => {
   
   //destructuring
   const {category} = req.params
