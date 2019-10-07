@@ -10,14 +10,14 @@ client.on('connect', () => {
 });
 
 const retrieveFromRedis = searchTerm => {
-  
+
   let today = moment().format("YYYY-MM-DD");
   
   let redisKey = `${today}:${searchTerm}`;
 
   let response = null;  
 
-  client.get(redisKey, (error, results) => {
+  client.hgetall(redisKey, (error, results) => {
     if (results) {
         response = results;
     } 
@@ -29,8 +29,12 @@ const retrieveFromRedis = searchTerm => {
 const storeToRedis = (data, searchTerm) => {
     let today = moment().format("YYYY-MM-DD");
     let redisKey = `${today}:${searchTerm}`;
-    client.setex(redisKey, 3600, JSON.stringify(data));
-    console.log('set on redis',data);
+
+    client.setex(redisKey, 36000, JSON.stringify(data)).then(results => {
+        console.log("set on redis", results,data);
+    });
+
+    
     return true;
 };
 
