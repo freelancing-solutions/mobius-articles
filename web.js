@@ -27,7 +27,8 @@ app.get('/search/:searchTerm',(req,res) => {
   const {searchTerm} = req.params;
   const results = {status : false,payload:[],error:{}};
   if (searchTerm){
-    news.search(searchTerm).then(response => {      
+    news.search(searchTerm).then(response => { 
+      console.log('RESPONSE FROM NEWS API',response);     
       res.status(200).json(response);      
     }).catch(error => {
         results.error = {...error};
