@@ -46,6 +46,7 @@ app.get('/refine/:category',(req,res) => {
   if (category){
       news.refine(category).then(response => {
         if (response){
+          console.log('Refined Search Results',response);
           res.status(200).json(response);
         }else{
           res.status(401).json({
