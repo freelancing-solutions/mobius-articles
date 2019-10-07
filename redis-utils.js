@@ -17,7 +17,7 @@ const retrieveFromRedis = searchTerm => {
 
   let response = null;  
 
-  client.hgetall(redisKey, (error, results) => {
+  client.get(redisKey, (error, results) => {
     if (results) {
         response = JSON.parse(results);
     } 
@@ -30,16 +30,14 @@ const storeToRedis = (data, searchTerm) => {
     let today = moment().format("YYYY-MM-DD");
     let redisKey = `${today}:${searchTerm}`;
 
-    client.hmset(redisKey,JSON.stringify(data),(err,reply) => {
-        if(err){
-            console.log(err);
-        }
-        console.log(reply);
-    });
-
-    // client.setex(redisKey, 36000, (data)).then(results => {
-    //     console.log("set on redis", results,data);
+    // client.hmset(redisKey,JSON.stringify(data),(err,reply) => {
+    //     if(err){
+    //         console.log(err);
+    //     }
+    //     console.log(reply);
     // });
+
+    client.setex(redisKey, 36000, JSON.stringify(data));
     
     return true;
 };
