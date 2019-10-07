@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
     res.send('this is an article api good luck')
 });
 
-app.get('/search/:searchTerm',(req,res,next) => {
+app.get("/search/:searchTerm",(req,res,next) => {
       //middle ware to define cache name
       //set chache name
       res.express_redis_cache_name = "searchterm" + req.params.searchTerm;
@@ -62,11 +62,10 @@ app.get("/refine/:category",(req, res, next) => {
       //middle ware to define cache name
       //set chache name
       res.express_redis_cache_name = "refine" + req.params.category;
-      next();},cache.route("search", 36000), (req, res) => {
+      next();},cache.route("refine", 36000), (req, res) => {
 
         //destructuring
-        const { category } = req.params;
-        res.express_redis_cache_name = "refine-" + category;
+        const { category } = req.params;        
         if (category) {
           news.refine(category).then(response => {
               if (response) {
