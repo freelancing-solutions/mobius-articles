@@ -41,19 +41,20 @@ app.get('/', (req, res) => {
 app.get("/search/:searchTerm",(req,res,next) => {
       //middle ware to define cache name
       //set chache name
-      res.express_redis_cache_name = "searchterm" + req.params.searchTerm;
+      res.express_redis_cache_name = "searchcache" + req.params.searchTerm;
       next();},cache.route('search',36000),(req,res) => {
   
     const {searchTerm} = req.params;        
     const results = {status : false,payload:[],error:{}};
 
     if (searchTerm){
-      news.search(searchTerm).then(response => {         
+      news.search(searchTerm).then(response => { 
+        
         res.status(200).json(response);      
       }).catch(error => {
-          results.error = {...error};
-          results.status = false;
-          res.status(401).json(results);
+          res.status(401).json({
+            message:'there was an error fetching news articles'
+          });
       });
     }
 });
@@ -61,15 +62,15 @@ app.get("/search/:searchTerm",(req,res,next) => {
 app.get("/refine/:category",(req, res, next) => {
       //middle ware to define cache name
       //set chache name
-      res.express_redis_cache_name = "refine" + req.params.category;
+      res.express_redis_cache_name = "refinecache" + req.params.category;
       next();},cache.route("refine", 36000), (req, res) => {
 
         //destructuring
-        const { category } = req.params;        
+        const { category } = req.params;    
+
         if (category) {
           news.refine(category).then(response => {
-              if (response) {
-                
+              if (response) {                
                 res.status(200).json(response);
               } else {
                 res.status(401).json({
@@ -90,11 +91,7 @@ app.get("/refine/:category",(req, res, next) => {
       }
 );
 
-// listen for requests
-app.listen(3000, () => {
-    console.log("Server is listening on port 3000");
-});
-
+// listening for requests
 app.listen(PORT).on('listening', () => {
     console.log(`Articles API Running on  ${PORT} `);    
 });
