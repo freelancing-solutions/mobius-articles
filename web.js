@@ -5,6 +5,12 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 const news = require('./news');
 const PORT = process.env.PORT || 3030;
+const config = {
+  redis:
+    process.env.REDIS_URL ||
+    "redis://h:peaedef6a4edb6f1fa3cc184fad918bbcd021336fa39a80c1713c5bfabf118679@ec2-54-174-43-7.compute-1.amazonaws.com:32049"
+};
+const cache = require("express-redis-cache")(process.env.REDIS_URL);
 
 
 // create express app
@@ -25,9 +31,12 @@ app.get('/', (req, res) => {
     res.send('this is an article api good luck')
 });
 
-app.get('/search/:searchTerm',(req,res) => {
+app.get('/search/:searchTerm', cache.route('search'),(req,res) => {
   
   const {searchTerm} = req.params;
+  
+  res.express_redis_cache_name = "search-" + searchTerm;
+
   const results = {status : false,payload:[],error:{}};
   if (searchTerm){
     news.search(searchTerm).then(response => { 
@@ -41,11 +50,11 @@ app.get('/search/:searchTerm',(req,res) => {
   }
 });
 
-app.get('/refine/:category',(req,res) => {
+app.get('/refine/:category', cache.route('refine',36000),(req,res) => {
   
   //destructuring
   const {category} = req.params
-
+  res.express_redis_cache_name = "refine-" + category;
   if (category){
       news.refine(category).then(response => {
         if (response){
