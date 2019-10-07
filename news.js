@@ -50,12 +50,12 @@ const searchNews = async term => {
 
 
 const articles_api = {	
-	entertainment_news: `https://newsapi.org/v2/top-headlines?country=za&category=entertainment&apiKey=${api_key}`,
-	sports_news: `https://newsapi.org/v2/top-headlines?country=za&category=sports&apiKey=${api_key}`,
-    business_news: `https://newsapi.org/v2/top-headlines?country=za&category=business&apiKey=${api_key}`,
-    tech_news: `https://newsapi.org/v2/top-headlines?country=za&category=technology&apiKey=${api_key}`,
-    science_news: `https://newsapi.org/v2/top-headlines?country=za&category=science&apiKey=${api_key}`,
-	health_news: `https://newsapi.org/v2/top-headlines?country=za&category=health&apiKey=${api_key}`		
+	entertainment: `https://newsapi.org/v2/top-headlines?country=za&category=entertainment&apiKey=${api_key}`,
+	sports: `https://newsapi.org/v2/top-headlines?country=za&category=sports&apiKey=${api_key}`,
+    business: `https://newsapi.org/v2/top-headlines?country=za&category=business&apiKey=${api_key}`,
+    tech: `https://newsapi.org/v2/top-headlines?country=za&category=technology&apiKey=${api_key}`,
+    science: `https://newsapi.org/v2/top-headlines?country=za&category=science&apiKey=${api_key}`,
+	health: `https://newsapi.org/v2/top-headlines?country=za&category=health&apiKey=${api_key}`		
 };    
 
 const category_memory ={
@@ -75,30 +75,7 @@ async function get_blog_articles(category){
     
     if ((fetch_date !== today) && (category_memory[category] && category_memory[category].length < 1)){
 
-      switch (category) {
-        case "entertainment":
-          apiRequest = articles_api.entertainment_news;
-          break;
-        case "sports":
-          apiRequest = articles_api.sports_news;
-          break;
-        case "business":
-          apiRequest = articles_api.business_news;
-          break;
-        case "tech":
-          apiRequest = articles_api.tech_news;
-          break;
-        case "science":
-          apiRequest = articles_api.science_news;
-          break;
-        case "health":
-          apiRequest = articles_api.health_news;
-          break;
-        default:
-          apiRequest = articles_api.entertainment_news;
-          break;
-      }
-
+     apiRequest = articles_api[category];
       await axios.get(apiRequest).then(result => {
           if (result.status === 200){
             return result.data;
