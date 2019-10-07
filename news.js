@@ -88,21 +88,22 @@ async function get_blog_articles(category) {
         }
             
         await axios.get(apiRequest).then(result => {
-            if (result.status === 200) {
-                return result.data;
+
+            if (result.status === 'ok') {
+                return result.articles;
             } else {
                 throw new Error('There was an error fetching articles');
             }
         }).then(articles => {
-            results = articles.articles;
+            results = articles;
             switch(category){
-                case 'entertainment': category_memory.entertainment_news = articles.articles;break;
-                case 'sports' : category_memory.sports_news = articles.articles;break;
-                case 'business' : category_memory.business_news = articles.articles;break;
-                case 'tech' : category_memory.tech_news = articles.articles;break;
-                case 'science': category_memory.science_news = articles.articles;break;
-                case 'health' : category_memory.health_news = articles.articles;break;
-                default: category_memory.entertainment_news = articles.articles;break;        
+                case 'entertainment': category_memory.entertainment_news = articles;break;
+                case 'sports' : category_memory.sports_news = articles;break;
+                case 'business' : category_memory.business_news = articles;break;
+                case 'tech' : category_memory.tech_news = articles;break;
+                case 'science': category_memory.science_news = articles;break;
+                case 'health' : category_memory.health_news = articles;break;
+                default: category_memory.entertainment_news = articles;break;        
             }
 
         }).catch(error => {
