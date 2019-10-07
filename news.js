@@ -23,11 +23,8 @@ const searchNews = async term => {
     }).then(response_json => {                            
         results.payload = [...response_json.articles];
         results.status = true;
-        const data = results.payload;
-        redis_utils.store(data,term);
-
     }).catch(error => {
-        
+      
         results.payload = [];
         results.error = {...error};
         results.status = false;

@@ -47,16 +47,15 @@ app.get("/search/:searchTerm",(req,res,next) => {
     const {searchTerm} = req.params;        
     const results = {status : false,payload:[],error:{}};
 
-    if (searchTerm){
-      news.search(searchTerm).then(response => { 
-        
-        res.status(200).json(response);      
-      }).catch(error => {
-          res.status(401).json({
-            message:'there was an error fetching news articles'
-          });
-      });
-    }
+    
+    news.search(searchTerm).then(response => {       
+      res.status(200).json(response);      
+    }).catch(error => {
+        res.status(401).json({
+          message:'there was an error fetching news articles'
+        });
+    });
+    
 });
 
 app.get("/refine/:category",(req, res, next) => {
