@@ -1,7 +1,7 @@
 
 const redis = require('redis');
 const moment = require('moment');
-const config = { redis: process.env.REDIS_URL };
+const config = { redis: process.env.REDIS_URL || 'redis://h:peaedef6a4edb6f1fa3cc184fad918bbcd021336fa39a80c1713c5bfabf118679@ec2-54-174-43-7.compute-1.amazonaws.com:32049' };
 
 let client = redis.createClient(config.redis);
 
