@@ -24,7 +24,7 @@ const searchNews = async term => {
                 
                 console.log(response_json);
                 const articles = JSON.parse(response_json);        
-                results.payload =[...articles.articles];
+                results.payload =[...articles];
                 results.status = true;
                 news_articles = results.payload;
                 fetch_date = today;
