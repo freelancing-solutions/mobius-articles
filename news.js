@@ -33,7 +33,7 @@ const searchNews = async term => {
         results.status = false;
     });
     console.log('Results Returbed from search news api',str(results.payload.length));
-    return results;
+    return results.payload;
 };
 
 
