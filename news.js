@@ -59,12 +59,12 @@ const articles_api = {
 
 const category_memory ={
     fetch_date : null,
-    entertainment_news : [],
-    sports_news : [],
-    business_news : [],
-    tech_news : [],
-    science_news : [],
-    health_news : [],
+    entertainment : [],
+    sports : [],
+    business : [],
+    tech : [],
+    science : [],
+    health : [],
 };    
 
 
@@ -75,6 +75,8 @@ async function get_blog_articles(category) {
 	let results = null;
     let apiRequest = null;
     const today = moment().format("YYYY-MM-DD");
+
+    
     
     if (
       (fetch_date !== today) && (category_memory[category] && category_memory[category].length < 1)
