@@ -3,13 +3,12 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const cors = require('cors');
+const config = require('config');
 const news = require('./news');
 const PORT = process.env.PORT || 3030;
 const redis = require('redis');
-const config = {
-  redis:"redis://h:peaedef6a4edb6f1fa3cc184fad918bbcd021336fa39a80c1713c5bfabf118679@ec2-54-174-43-7.compute-1.amazonaws.com:32049"
-};
-const cache = require("express-redis-cache")(redis.createClient(config.redis));
+const cache_config = {redis:process.env.REDIS_URL || config.get('redis') };
+const cache = require("express-redis-cache")(redis.createClient(cache_config.redis));
 
 cache.on("connected", () => {
   // ....
