@@ -29,9 +29,5 @@
  # Contact Me
   contact person
   Name --> Justice Ndou
-  twitter --> https://twitter.com/@blueitserver
-  
-  profile ---> https://justicendou.site find my contact details there... 
-
- 
-
+  Twitter --> https://twitter.com/@blueitserver
+  Profile ---> https://justicendou.site find my contact details there...
