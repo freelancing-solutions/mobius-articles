@@ -16,7 +16,8 @@ const searchNews = async term => {
         language: "en",
         sortBy: "relevancy",    
     
-    }).then(response_json => {                            
+    }).then(response_json => { 
+        console.log(response_json);                           
         results.payload = [...response_json.articles];
         results.status = true;
     }).catch(error => {
