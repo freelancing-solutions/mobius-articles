@@ -27,7 +27,9 @@
  you cant get this to work let me know i will help.
 
  # Contact Me
-  contact person
-  Name --> Justice Ndou
-  Twitter --> https://twitter.com/@blueitserver
-  Profile ---> https://justicendou.site find my contact details there...
+  # Contact Person
+     Names --> Justice Ndou
+  # Social Media
+    Twitter --> https://twitter.com/@blueitserver
+  # Profile  
+    https://justicendou.site 
