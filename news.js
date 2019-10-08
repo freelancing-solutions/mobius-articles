@@ -15,19 +15,20 @@ const searchNews = async term => {
         q: term,        
         from: today,    
         language: "en",
-        sortBy: "relevancy",    
-    
+        sortBy: "relevancy",        
     }).then(response_json => { 
         console.log(response_json);                           
         results.payload = [...response_json.articles];
         results.status = true;
     }).catch(error => {
-        console.log(error);
+        console.log(error.message);
         results.payload = [];
         results.error = {...error};
         results.status = false;
     });
-    console.log('Results Returned from search news api',str(results.payload.length));
+    
+    console.log('Results Returned from search news api',results.payload.length);
+
     return results.payload;
 };
 
