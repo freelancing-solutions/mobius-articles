@@ -43,16 +43,22 @@ app.get("/search/:searchTerm",(req,res,next) => {
       res.express_redis_cache_name = "searchcache" + req.params.searchTerm;
       next();},cache.route('search',36000),(req,res) => {
   
-    const {searchTerm} = req.params;        
-    const results = {status : false,payload:[],error:{}};
+    const searchTerm = req.params.searchTerm;        
+    
 
     
     news.search(searchTerm).then(response => {    
-      console.log('ok lets see',response);   
-      res.status(200).json(response);      
+      if(response){
+        res.status(200).json(response);      
+      }else{
+          res.status(401).json({
+            message:
+              "there was an error fetching articles please try again later"
+          });
+      }      
     }).catch(error => {
         res.status(401).json({
-          message:'there was an error fetching news articles'
+          message: error.message
         });
     });
     
@@ -65,28 +71,23 @@ app.get("/refine/:category",(req, res, next) => {
       next();},cache.route("refine", 36000), (req, res) => {
 
         //destructuring
-        const { category } = req.params;    
+        const  category  = req.params.category   
 
-        if (category) {
-          news.refine(category).then(response => {
-              if (response) {                
-                res.status(200).json(response);
-              } else {
-                res.status(401).json({
-                  message:
-                    "there was an error fetching articles please try again later"
-                });
-              }
-            }).catch(error => {
-              res.status(401).json({
-                message: error.message
-              });
+        
+      news.refine(category).then(response => {
+          if (response) {                
+            res.status(200).json(response);
+          } else {
+            res.status(401).json({
+              message:
+                "there was an error fetching articles please try again later"
             });
-        } else {
+          }
+        }).catch(error => {
           res.status(401).json({
-            message: "your query was not formatted correctly"
+            message: error.message
           });
-        }
+        });
       }
 );
 
