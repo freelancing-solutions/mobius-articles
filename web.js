@@ -33,8 +33,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // define a simple route
-app.get('/:search', (req, res) => {    
-    res.send('this is an article api good luck');
+app.get('/:search', (req, res) => {        
     res.redirect(`/search/${req.params.search}`);
 });
 
