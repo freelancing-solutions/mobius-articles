@@ -2,7 +2,8 @@ const moment = require("moment");
 const config = require("config");
 const NewsAPI = require("newsapi");
 const axios = require('axios');
-const newsapi = new NewsAPI(process.env.NEWS_API_KEY || config.get("news_api_key"));
+const api_key = process.env.NEWS_API_KEY || config.get("news_api_key");
+const newsapi = new NewsAPI(api_key);
 
 let fetch_date = null;
 
