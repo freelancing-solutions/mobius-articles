@@ -1,5 +1,6 @@
 # mobius-articles
- a realtime article server created to help populate web apps with blog articles scrapped from news api and other articles api around the world,
+ An article API , built using node.js , express, redis and News API.
+
 
  # Features
  The API limits the number of times requests are made to news api by catching the results of the 
