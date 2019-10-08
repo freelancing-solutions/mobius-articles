@@ -43,7 +43,7 @@ app.get("/search/:searchTerm",(req,res,next) => {
       //middle ware to define cache name
       //set chache name
       res.express_redis_cache_name = "searchcache" + req.params.searchTerm;
-      next();},cache.route('search',36000),(req,res) => {
+      next();},cache.route(`/search/${req.params.searchTerm}`,36000),(req,res) => {
   
     const searchTerm = req.params.searchTerm;                
     news.search(searchTerm).then(response => {    
@@ -67,8 +67,7 @@ app.get("/refine/:category",(req, res, next) => {
       //middle ware to define cache name
       //set chache name
       res.express_redis_cache_name = "refinecache" + req.params.category;
-      next();},cache.route("refine", 36000), (req, res) => {
-
+      next();},cache.route(`/refine/${req.params.category}`, 36000), (req, res) => {
         //destructuring
         const  category  = req.params.category   
 
