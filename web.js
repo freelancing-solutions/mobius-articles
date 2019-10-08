@@ -33,8 +33,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // define a simple route
-app.get('/', (req, res) => {    
-    res.send('this is an article api good luck')
+app.get('/:search', (req, res) => {    
+    res.send('this is an article api good luck');
+    res.redirect(`/search/${req.params.search}`);
 });
 
 app.get("/search/:searchTerm",(req,res,next) => {
@@ -43,10 +44,7 @@ app.get("/search/:searchTerm",(req,res,next) => {
       res.express_redis_cache_name = "searchcache" + req.params.searchTerm;
       next();},cache.route('search',36000),(req,res) => {
   
-    const searchTerm = req.params.searchTerm;        
-    
-
-    
+    const searchTerm = req.params.searchTerm;                
     news.search(searchTerm).then(response => {    
       if(response){
         res.status(200).json(response);      

@@ -77,7 +77,7 @@ async function get_blog_articles(category){
     } else {
       results = category_memory[category];
     }
-    console.log('results returned from fetch blog articles');
+    console.log('results returned from fetch blog articles',category);
 	return results;
 };
 
