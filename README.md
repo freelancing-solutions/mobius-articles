@@ -27,8 +27,11 @@
  you cant get this to work let me know i will help.
 
  # Contact Me
-
-  https://justicendou.site find my contact details there... 
+  contact person
+  Name --> Justice Ndou
+  twitter --> https://twitter.com/@blueitserver
+  
+  profile ---> https://justicendou.site find my contact details there... 
 
  
 
