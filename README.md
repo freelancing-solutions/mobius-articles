@@ -10,7 +10,7 @@
  Therefore this implementation can be used with mainly free heroku accounts, and free news api
  accounts.
 
- # how to use
+ # How to Use
 
  1. clone this repository
  2. npm install
@@ -25,6 +25,10 @@
 
  dont forget to read heroku docs and also newsapi docs for more information but in case
  you cant get this to work let me know i will help.
+
+ # Contact Me
+
+  https://justicendou.site find my contact details there... 
 
  
 
