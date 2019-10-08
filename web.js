@@ -42,8 +42,9 @@ app.get('/:search', (req, res) => {
 app.get("/search/:searchTerm",(req,res,next) => {
       //middle ware to define cache name
       //set chache name
-      res.express_redis_cache_name = "searchcache" + req.params.searchTerm;
-      next();},cache.route(`/search/${req.params.searchTerm}`,36000),(req,res) => {
+      const searchTerm = req.params.searchTerm;
+      res.express_redis_cache_name = "searchcache" + searchTerm;
+      next();},cache.route(`/search/${searchTerm}`,36000),(req,res) => {
   
     const searchTerm = req.params.searchTerm;                
     news.search(searchTerm).then(response => {    
