@@ -8,7 +8,9 @@ const news = require('./news');
 const PORT = process.env.PORT || 3030;
 const redis = require('redis');
 const cache_config = {redis:process.env.REDIS_URL || config.get('redis') };
-const cache = require("express-redis-cache")(redis.createClient(cache_config.redis));
+const cache = require("express-redis-cache")({
+  client: require("redis").createClient()
+});
 
 cache.on("connected", () => {
   // ....
