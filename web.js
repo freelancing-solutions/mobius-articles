@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const bodyParser = require("body-parser");
 const cors = require('cors');
@@ -99,4 +97,3 @@ app.listen(PORT).on('listening', () => {
 
 
 
-// TODO - consider turning this app into a simple crud app
