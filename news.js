@@ -4,6 +4,23 @@ const NewsAPI = require("newsapi");
 const axios = require('axios');
 const api_key = process.env.NEWS_API_KEY || config.get("news_api_key");
 const newsapi = new NewsAPI(api_key);
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGODB_URI || config.get("mongoDB"), {
+  useNewUrlParser: true
+});
+const db = mongoose.connection;
+db.on('connected', () => {
+  console.log('mongo db successfully connected');
+});
+
+db.on("disconnected", () => {
+  console.log('mongo db successfully disconnected');
+});
+
+db.on("error", () => {
+  console.log('Error connecting to mongo db');
+});
 
 let fetch_date = null;
 
