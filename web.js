@@ -23,14 +23,30 @@ cache.on("disconnected", () => {
 // create express app
 const app = express();
 
+let setCache = function (req, res, next) {
+  // here you can define period in second, this one is 1 hour
+  const period = 60 * 60;
+  if (req.method == 'GET'){
+      res.set('Cache-control', `public, max-age=${period}`)
+  }else{
+      res.set('Cache-control', `no-store`)
+  }
+// you only want to cache for GET requests
+
+// remember to call next() to pass on the request
+  next()
+};
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
 // adding cors
 app.use(cors());
+
+app.use(setCache);
+
 
 // define a simple route
 app.get('/:search', (req, res) => {        
@@ -44,8 +60,8 @@ app.get("/search/:searchTerm",(req,res,next) => {
       next();},cache.route({expire:36000}),(req,res) => {
   
     const searchTerm = req.params.searchTerm;
-    //  cache set for one hour
-    res.set('Cache-control', 'public, max-age=3600');
+
+
     news.search(searchTerm).then(response => {    
       if(response){
         res.status(200).json(response);      
@@ -70,9 +86,8 @@ app.get("/refine/:category",(req, res, next) => {
       next();},cache.route({expire:36000}), (req, res) => {
         //destructuring
       const  category  = req.params.category;
-      //  cache set for one hour
-      res.set('Cache-control', 'public, max-age=3600');
-        news.refine(category).then(response => {
+
+      news.refine(category).then(response => {
           if (response) {                
             res.status(200).json(response);
           } else {
