@@ -43,7 +43,9 @@ app.get("/search/:searchTerm",(req,res,next) => {
       res.express_redis_cache_name = "search-" + req.params.searchTerm;
       next();},cache.route({expire:36000}),(req,res) => {
   
-    const searchTerm = req.params.searchTerm;                
+    const searchTerm = req.params.searchTerm;
+    //  cache set for one hour
+    res.set('Cache-control', 'public, max-age=3600');
     news.search(searchTerm).then(response => {    
       if(response){
         res.status(200).json(response);      
@@ -67,10 +69,10 @@ app.get("/refine/:category",(req, res, next) => {
       res.express_redis_cache_name = "refine-" + req.params.category;
       next();},cache.route({expire:36000}), (req, res) => {
         //destructuring
-        const  category  = req.params.category   
-
-        
-      news.refine(category).then(response => {
+      const  category  = req.params.category;
+      //  cache set for one hour
+      res.set('Cache-control', 'public, max-age=3600');
+        news.refine(category).then(response => {
           if (response) {                
             res.status(200).json(response);
           } else {
