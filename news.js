@@ -68,7 +68,7 @@ async function get_blog_articles(category){
 	let results = null;
     let apiRequest = null;
     const today = moment().format("YYYY-MM-DD");
-    
+
     if ((fetch_date !== today) && (category_memory[category] && (category_memory[category].length < 1))){
 
      apiRequest = articles_api[category];
@@ -78,7 +78,7 @@ async function get_blog_articles(category){
           }else{
               throw new Error('there was an error fetching data');
           }
-          
+
         }).then(json_articles => {
             results = json_articles.articles;
             category_memory[category] = results;
