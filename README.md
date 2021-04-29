@@ -32,4 +32,4 @@
   # Social Media
     Twitter --> https://twitter.com/@blueitserver
   # Profile  
-    https://justicendou.site 
+    https://justice-ndou.site 
