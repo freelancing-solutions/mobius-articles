@@ -3,12 +3,9 @@
 
 
  # Features
- The API limits the number of times requests are made to news api by catching the results of the 
- commonly requested articles in redis cache, meaning several visits to the pages on your blog
- wont create multiple requests to your News API.
-
- Therefore this implementation can be used with mainly free heroku accounts, and free news api
- accounts.
+ - Rate Limiting
+ - Reduced Access times using redis cache
+ - Limited Actual reads using API Key through cached Requests
 
  # How to Use
 
