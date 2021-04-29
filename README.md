@@ -31,4 +31,4 @@
   # Profile  
     https://justice-ndou.site 
   # Support Me to Develop this Codebase
-  [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](mobiusndou@gmail.com)
+  [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate?hosted_button_id=7C8NUSPWJX4Z6)
