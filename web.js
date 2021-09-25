@@ -32,10 +32,10 @@ let setCache = function (req, res, next) {
   next()
 };
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 // parse requests of content-type - application/json
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 // adding cors
 app.use(cors());

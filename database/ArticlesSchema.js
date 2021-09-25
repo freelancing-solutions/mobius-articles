@@ -5,6 +5,7 @@ let ArticlesSchema = new Schema({
     author : String,
     content : String,
     description : String,
+    content: String,
     publishedAt : String,
     source : {id: String,name:String},
     title : String,
